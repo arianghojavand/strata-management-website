@@ -34,7 +34,7 @@ export default function Portal() {
     <>
     <Navbar />
 
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
+    <div className="min-h-[75vh] flex flex-col items-center justify-center bg-gray-100 p-4">
       <h1 className="text-3xl font-bold mb-4">Admin Portal Login</h1>
 
       <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-full max-w-sm">
