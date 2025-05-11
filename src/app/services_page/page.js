@@ -17,16 +17,19 @@ export default function Services() {
             Services
           </h1>
           <p className="text-lg">
-            We’re a strata management company committed to smooth operations and community harmony.
+            We'll make your time stress free.
           </p>
         </div>
       </div>
 
       {/* rest of body */}
       <div className="px-8 py-16 max-w-3xl mx-auto">
-        <p className="text-gray-700 text-base leading-relaxed">
+        <p className="text-gray-700 text-base leading-relaxed text-justify">
           
-          More info about the services, contact, etc.
+          At Strata Management, we offer a wide range of services to ensure your building is maintained to the highest standard. From handling repair and maintenance requests to managing financial records and facilitating meetings, our goal is to provide seamless support for both residents and the Owners Corporation. <br />
+        <br />
+          
+          We also oversee compliance with legal and safety regulations, maintain clear communication channels, and ensure the long-term value of your property. With our experienced team, you can be confident that your strata needs are managed professionally and efficiently.
         </p>
       </div>
 

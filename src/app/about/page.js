@@ -24,7 +24,7 @@ export default function About() {
 
       {/* rest of body */}
       <div className="px-8 py-16 max-w-3xl mx-auto">
-        <p className="text-gray-700 text-base leading-relaxed">
+        <p className="text-gray-700 text-base leading-relaxed text-justify">
           
         <strong>Welcome to our strata management service!</strong>
         <br /> We specialize in managing residential buildings and ensuring smooth communication and operations for all owners and residents.

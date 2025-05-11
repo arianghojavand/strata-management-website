@@ -24,9 +24,17 @@ export default function Home() {
 
       {/* rest of body */}
       <div className="px-8 py-16 max-w-3xl mx-auto">
-        <p className="text-gray-700 text-base leading-relaxed">
+        <p className="text-gray-700 text-base leading-relaxed text-justify">
           
-          More info about the services, contact, etc.
+          Welcome to Strata Management — a streamlined digital hub designed to simplify how you interact with your building’s Owners Corporation. Whether you're an owner, tenant, or committee member, this platform makes it easier to stay informed, connected, and in control. <br />
+          <br />
+
+          From reporting maintenance issues to accessing key documents, we've built this website to make strata communication more transparent and efficient. Instead of dealing with paperwork or chasing updates, you can now submit enquiries, view service details, and find contact information all in one place. <br />
+          <br />
+
+          Strata living should be stress-free — and that’s what we aim to provide. With a clean interface and responsive design, you can access the platform anytime, on any device. We believe managing shared spaces should be simple, reliable, and accessible for everyone. <br />
+          <br />
+
         </p>
       </div>
 
