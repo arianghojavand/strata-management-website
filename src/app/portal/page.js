@@ -1,4 +1,6 @@
 'use client';
+
+import Navbar from "../components/Navbar";
 import { useState } from 'react';
 
 export default function Portal() {
@@ -29,6 +31,9 @@ export default function Portal() {
   };
 
   return (
+    <>
+    <Navbar />
+
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
       <h1 className="text-3xl font-bold mb-4">Admin Portal Login</h1>
 
@@ -67,5 +72,6 @@ export default function Portal() {
         </div>
       )}
     </div>
+    </>
   );
 }
