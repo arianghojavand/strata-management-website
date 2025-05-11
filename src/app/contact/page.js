@@ -30,7 +30,7 @@ export default function Contact() {
             <br />
             <strong>Address:</strong> 123 Strata Lane, Sydney, NSW 2000 <br />
             <strong>Office Hours:</strong> Monday to Friday, 9 AM - 5 PM <br />
-            <strong>Email:</strong> support@stratamanagement.com <br />
+            <strong>Email:</strong> {process.env.NEXT_PUBLIC_CONTACT_EMAIL} <br />
             <strong>Phone:</strong> (02) 1234 5678 <br />
 
         </p>
