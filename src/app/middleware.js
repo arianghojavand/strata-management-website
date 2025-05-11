@@ -1,6 +1,6 @@
 export function middleware(request) {
   const hour = new Date().getHours();
-  if (hour >= 3 && hour < 4) {
+  if (hour >= 19 && hour < 23) {
     return new NextResponse("We're sleeping! Try again after 5am.", { status: 503 });
   }
 
