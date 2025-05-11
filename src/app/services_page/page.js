@@ -6,10 +6,10 @@ export default function Services() {
       <Navbar />
 
       {/* strata-landing background */}
-      <div className="bg-[url('/strata-landing.jpg')] bg-cover bg-center relative min-h-[75vh] w-full text-white flex items-center justify-center">
+      <div className="bg-[url('/chombo.gif')] bg-cover bg-center relative min-h-[75vh] w-full text-white flex items-center justify-center">
 
       {/* this is simple black overlay text */}
-      <div className="absolute inset-0 bg-black/30 z-0"></div>
+      <div className="absolute inset-0 bg-black/40 z-0"></div>
       
       {/* main heading and subheading */}
         <div className="text-center px-4 z-10">
