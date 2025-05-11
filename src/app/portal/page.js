@@ -52,14 +52,14 @@ export default function Portal() {
         </button>
       </form>
 
-      {message && <p className="mt-4 text-red-600">{message}</p>}
+      {message && <p className="mt-4">{message}</p>}
 
       {taskCount !== null && (
-        <div className="mt-6">
+        <div className="mt-6 flex flex-col items-center">
           <p className="text-lg font-medium">Number of enquiries: {taskCount}</p>
           <iframe
             src={process.env.NEXT_PUBLIC_SHEET_EMBED_URL}
-            width="400%"
+            width="372%"
             height="600"
             className="mt-4 border"
             title="Google Sheet"
