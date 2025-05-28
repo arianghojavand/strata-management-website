@@ -1,6 +1,12 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": ".next",
-  "regions": ["syd1"]
-  
+  "regions": ["syd1"],
+
+  "functions": {
+      "api/*.php": {
+        "runtime": "vercel-php@0.5.0"
+      }
+
+    }  
 }
