@@ -7,38 +7,35 @@ if (!isset($_COOKIE['supabase_email'])) {
 $email = $_COOKIE['supabase_email'];
 
 // === 2. Supabase config ===
-$supabase_url = 'https://nztpgivnjthpgdaqijpx.supabase.co'; 
+$supabase_url = 'https://nztpgivnjthpgdaqijpx.supabase.co';
 $supabase_key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im56dHBnaXZuanRocGdkYXFpanB4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg1Mjc3ODksImV4cCI6MjA2NDEwMzc4OX0.fnCaussQTDy_meyn514o75GoFs1-EfoVzMvhHeko_aU'; 
 
-// === 3. Fetch user's data ===
-$ch = curl_init();
-curl_setopt_array($ch, [
-    CURLOPT_URL => "$supabase_url/rest/v1/strata_roll?select=*&contact_email=eq.$email",
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_HTTPHEADER => [
-        "apikey: $supabase_key",
-        "Authorization: Bearer $supabase_key",
-        "Content-Type: application/json"
+// === 3. Fetch user's data using file_get_contents ===
+$user_url = "$supabase_url/rest/v1/strata_roll?select=*&contact_email=eq.$email";
+$headers = [
+    "apikey: $supabase_key",
+    "Authorization: Bearer $supabase_key",
+    "Content-Type: application/json"
+];
+$context = stream_context_create([
+    'http' => [
+        'method' => 'GET',
+        'header' => implode("\r\n", $headers)
     ]
 ]);
-$user_response = curl_exec($ch);
-curl_close($ch);
+$user_response = file_get_contents($user_url, false, $context);
 $user_data = json_decode($user_response, true);
 
 // === 4. Fetch total entitlement using RPC ===
-$rpc = curl_init();
-curl_setopt_array($rpc, [
-    CURLOPT_URL => "$supabase_url/rest/v1/rpc/get_total_entitlement",
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_POST => true,
-    CURLOPT_HTTPHEADER => [
-        "apikey: $supabase_key",
-        "Authorization: Bearer $supabase_key",
-        "Content-Type: application/json"
+$rpc_url = "$supabase_url/rest/v1/rpc/get_total_entitlement";
+$rpc_context = stream_context_create([
+    'http' => [
+        'method' => 'POST',
+        'header' => implode("\r\n", $headers),
+        'content' => '{}' // POST with empty JSON body
     ]
 ]);
-$rpc_response = curl_exec($rpc);
-curl_close($rpc);
+$rpc_response = file_get_contents($rpc_url, false, $rpc_context);
 $total_entitlement = floatval(json_decode($rpc_response, true)[0]);
 
 // === 5. Render output ===
@@ -58,7 +55,7 @@ if (!$user_data || count($user_data) === 0) {
 
 $user = $user_data[0];
 $entitlement = floatval($user['entitlement']);
-$total_levy = 10000.00; // ← You can replace this with a dynamic field later
+$total_levy = 10000.00;
 $owed = ($entitlement / $total_entitlement) * $total_levy;
 
 // === 6. Display table ===
