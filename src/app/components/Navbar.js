@@ -13,6 +13,7 @@ export default function Navbar() {
           <Link href="/services_page" className="text-white hover:text-gray-300">Services</Link>
           <Link href="/contact" className="text-white hover:text-gray-300">Contact</Link>
           <Link href="/resources_page" className="text-white hover:text-gray-300">Resources</Link>
+          <Link href="/strata_roll" className="text-white hover:text-gray-300">Strata Roll</Link>
           <Link href="/portal" className="text-white hover:text-gray-300">Portal</Link>
         </nav>
       </div>
