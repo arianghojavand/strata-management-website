@@ -28,18 +28,25 @@ $user_data = json_decode($user_response, true);
 
 // === 4. Fetch total entitlement using RPC ===
 $rpc_url = "$supabase_url/rest/v1/rpc/get_total_entitlement";
-$rpc_context = stream_context_create([
-    'http' => [
-        'method' => 'POST',
-        'header' => implode("\r\n", $headers),
-        'content' => '{}' // POST with empty JSON body
+$ch = curl_init($rpc_url);
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_POST => true,
+    CURLOPT_POSTFIELDS => '{}',
+    CURLOPT_HTTPHEADER => [
+        "apikey: $supabase_key",
+        "Authorization: Bearer $supabase_key",
+        "Content-Type: application/json"
     ]
 ]);
-$rpc_response = file_get_contents($rpc_url, false, $rpc_context);
+$rpc_response = curl_exec($ch);
+$rpc_error = curl_error($ch);
+curl_close($ch);
 
 $rpc_data = json_decode($rpc_response, true);
-if (!is_array($rpc_data) || count($rpc_data) === 0 || floatval($rpc_data[0]) == 0) {
-    echo "<p>Error: Failed to fetch total entitlement from Supabase or result is 0.</p>";
+if (!$rpc_data || !isset($rpc_data[0]) || floatval($rpc_data[0]) == 0) {
+    echo "<p>Error: RPC failed or returned zero.</p>";
+    echo "<pre>Raw response: " . htmlspecialchars($rpc_response) . "\nCURL error: $rpc_error</pre>";
     exit;
 }
 $total_entitlement = floatval($rpc_data[0]);
