@@ -1,57 +1,51 @@
 <?php
-// === 1. Check for cookie ===
 if (!isset($_COOKIE['supabase_email'])) {
     echo "<h2 style='font-family:sans-serif;'>Not logged in. Please <a href='/login'>log in</a>.</h2>";
     exit;
 }
 $email = $_COOKIE['supabase_email'];
 
-// === 2. Supabase config ===
 $supabase_url = 'https://nztpgivnjthpgdaqijpx.supabase.co';
-$supabase_key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im56dHBnaXZuanRocGdkYXFpanB4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg1Mjc3ODksImV4cCI6MjA2NDEwMzc4OX0.fnCaussQTDy_meyn514o75GoFs1-EfoVzMvhHeko_aU'; 
+$supabase_key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im56dHBnaXZuanRocGdkYXFpanB4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg1Mjc3ODksImV4cCI6MjA2NDEwMzc4OX0.fnCaussQTDy_meyn514o75GoFs1-EfoVzMvhHeko_aU';
 
-// === 3. Fetch user's data using file_get_contents ===
-$user_url = "$supabase_url/rest/v1/strata_roll?select=*&contact_email=eq.$email";
 $headers = [
     "apikey: $supabase_key",
     "Authorization: Bearer $supabase_key",
     "Content-Type: application/json"
 ];
-$context = stream_context_create([
+
+// === Fetch user data
+$user_url = "$supabase_url/rest/v1/strata_roll?select=*&contact_email=eq.$email";
+$user_context = stream_context_create([
     'http' => [
         'method' => 'GET',
         'header' => implode("\r\n", $headers)
     ]
 ]);
-$user_response = file_get_contents($user_url, false, $context);
+$user_response = file_get_contents($user_url, false, $user_context);
 $user_data = json_decode($user_response, true);
 
-// === 4. Fetch total entitlement using RPC ===
+// === Fetch total entitlement via RPC (POST)
 $rpc_url = "$supabase_url/rest/v1/rpc/get_total_entitlement";
-$ch = curl_init($rpc_url);
-curl_setopt_array($ch, [
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_POST => true,
-    CURLOPT_POSTFIELDS => '{}',
-    CURLOPT_HTTPHEADER => [
-        "apikey: $supabase_key",
-        "Authorization: Bearer $supabase_key",
-        "Content-Type: application/json"
+$rpc_context = stream_context_create([
+    'http' => [
+        'method' => 'POST',
+        'header' => implode("\r\n", $headers),
+        'content' => '{}'  // must send empty JSON for Supabase RPC
     ]
 ]);
-$rpc_response = curl_exec($ch);
-$rpc_error = curl_error($ch);
-curl_close($ch);
-
+$rpc_response = file_get_contents($rpc_url, false, $rpc_context);
 $rpc_data = json_decode($rpc_response, true);
+
+// === Safety check for entitlement value
 if (!$rpc_data || !isset($rpc_data[0]) || floatval($rpc_data[0]) == 0) {
-    echo "<p>Error: RPC failed or returned zero.</p>";
-    echo "<pre>Raw response: " . htmlspecialchars($rpc_response) . "\nCURL error: $rpc_error</pre>";
+    echo "<p>Error: Failed to fetch total entitlement from Supabase or result is 0.</p>";
+    echo "<pre>Raw response: " . htmlspecialchars($rpc_response) . "</pre>";
     exit;
 }
 $total_entitlement = floatval($rpc_data[0]);
 
-// === 5. Render output ===
+// === Render Output
 echo "<style>
     body { font-family: sans-serif; padding: 2rem; }
     table { border-collapse: collapse; width: 100%; max-width: 700px; margin-top: 2rem; }
@@ -71,7 +65,6 @@ $entitlement = floatval($user['entitlement']);
 $total_levy = 10000.00;
 $owed = ($entitlement / $total_entitlement) * $total_levy;
 
-// === 6. Display table ===
 echo "<table>
 <tr><th>Unit</th><th>Owner</th><th>Entitlement (%)</th><th>Total Owed ($)</th></tr>
 <tr>
