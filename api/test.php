@@ -1,3 +1,3 @@
-<? php 
-echo "<h1>Hello from PHP!</h1><p>This is the Strata admin utility page.</p>";;
+<?php
+echo "<h1>Welcome to the Strata Admin Portal</h1><p>This is a PHP-powered utility page deployed on Vercel.</p>";
 ?>
