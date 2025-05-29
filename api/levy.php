@@ -36,7 +36,13 @@ $rpc_context = stream_context_create([
     ]
 ]);
 $rpc_response = file_get_contents($rpc_url, false, $rpc_context);
-$total_entitlement = floatval(json_decode($rpc_response, true)[0]);
+
+$rpc_data = json_decode($rpc_response, true);
+if (!is_array($rpc_data) || count($rpc_data) === 0 || floatval($rpc_data[0]) == 0) {
+    echo "<p>Error: Failed to fetch total entitlement from Supabase or result is 0.</p>";
+    exit;
+}
+$total_entitlement = floatval($rpc_data[0]);
 
 // === 5. Render output ===
 echo "<style>
