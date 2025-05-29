@@ -11,7 +11,7 @@ $email = $_COOKIE['supabase_email'];
 
 // === 2. Supabase project setup: Base URL and API key (Anon/public) ===
 $supabase_url = 'https://nztpgivnjthpgdaqijpx.supabase.co';
-$supabase_key = 'YOUR_SUPABASE_ANON_KEY'; // (replace with secure env variable in prod)
+$supabase_key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im56dHBnaXZuanRocGdkYXFpanB4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg1Mjc3ODksImV4cCI6MjA2NDEwMzc4OX0.fnCaussQTDy_meyn514o75GoFs1-EfoVzMvhHeko_aU'; 
 
 // Prepare headers for API requests
 $headers = [
