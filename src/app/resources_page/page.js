@@ -34,11 +34,27 @@ export default function Resources() {
         <div className="flex justify-center">
         <ol className="list-decimal pl-6 space-y-2 text-gray-800">
         <li>
-            <a href="/strata-management-act.pdf" 
+            <a href="https://nztpgivnjthpgdaqijpx.supabase.co/storage/v1/object/public/resources//strata-management-act.pdf" 
             target="_blank" 
             rel="noopener noreferrer" 
             className="text-blue-600 hover:underline">
             Strata Management Act
+            </a>
+        </li>
+        <li>
+            <a href="https://nztpgivnjthpgdaqijpx.supabase.co/storage/v1/object/public/resources//Tutorial-9.pdf" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-blue-600 hover:underline">
+            New Tenant Guide 1
+            </a>
+        </li>
+        <li>
+            <a href="https://nztpgivnjthpgdaqijpx.supabase.co/storage/v1/object/public/resources//Tutorial-10.pdf" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-blue-600 hover:underline">
+            New Tenant Guide 2
             </a>
         </li>
         </ol>

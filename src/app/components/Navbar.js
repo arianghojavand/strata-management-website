@@ -14,7 +14,8 @@ export default function Navbar() {
           <Link href="/contact" className="text-white hover:text-gray-300">Contact</Link>
           <Link href="/resources_page" className="text-white hover:text-gray-300">Resources</Link>
           <Link href="/strata_roll" className="text-white hover:text-gray-300">Strata Roll</Link>
-          <Link href="/portal" className="text-white hover:text-gray-300">Portal</Link>
+          <Link href="/portal" className="text-white hover:text-gray-300">Admin Portal</Link>
+          <Link href="/login" className="text-white hover:text-gray-300">Owner's Login</Link>
         </nav>
       </div>
     </header>
