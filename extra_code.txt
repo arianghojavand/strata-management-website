@@ -1,0 +1,20 @@
+
+get_total_entitlement function supabase
+create or replace function get_total_entitlement()
+returns numeric
+language sql
+as $$
+  select sum(entitlement) from strata_roll;
+$$;
+
+rls_supabase
+alter policy "Enable read access for all users"
+
+on "public"."strata_roll"
+
+to public
+
+using (
+7
+);
+
