@@ -1,7 +1,7 @@
 # Strata Management Website
 
 <p align="center">
-  <img src="image_2026-06-12_233516100.png" alt="Strata Management Website Screenshot" width="800">
+  <img src="https://github.com/user-attachments/assets/7050a72e-14c2-4186-b58a-9cd36e76193a" alt="Strata Management Website Screenshot" width="800">
 </p>
 
 A responsive strata management web application built with **Next.js**, **React**, **Tailwind CSS**, **Supabase**, and **Google Sheets integration**. The site acts as a central digital hub for residents, owners, and building administrators to access strata information, submit enquiries, view resources, and manage owner related data.
